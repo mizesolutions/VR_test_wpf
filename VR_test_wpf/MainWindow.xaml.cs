@@ -40,18 +40,18 @@ namespace VR_test_wpf
             _child.NotifyParentEvent += new NotifyParentDelegate(_child_NotifyParentEvent);
             _child.NotifyParentEventMouse += new NotifyParentDelegateMouse(_child_NotifyParentEventMouse);
             _child.ReadKeyInChild();
-            
+
         }
-        
+
         //Event Listener. This function will be called whenever child class raises event.
         private void _child_NotifyParentEvent(CustomEventArgs customEventArgs)
         {
-            textBox_1.Text += "\n"+customEventArgs.Key.ToString();
+            textBox_1.Text += "\n" + customEventArgs.Key.ToString();
             textBox_1.ScrollToEnd();
         }
 
         //Event Listener. This function will be called whenever child class raises event.
-        private void _child_NotifyParentEventMouse(object sender,MouseEventArgs m)
+        private void _child_NotifyParentEventMouse(object sender, MouseEventArgs m)
         {
             circle.Center = m.GetPosition((IInputElement)sender);
         }
@@ -74,6 +74,19 @@ namespace VR_test_wpf
             _child.Top = Top;
             _child.Left = (Left + Width) - 5;
             _child.Show();
+
         }
+
+        private void Btn_Sim_Type_Click(object sender, RoutedEventArgs e)
+        {
+            _child.KeySim();
+        }
+
+        private void Btn_Sim_Mouse_Click(object sender, RoutedEventArgs e)
+        {
+            _child.MouseSim();
+        }
+
     }
+
 }

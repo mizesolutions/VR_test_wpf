@@ -14,6 +14,8 @@
             <Button x:Name="btn_Start" Content="Start" Width="75" Click="Btn_Start_Click" ClickMode="Press"/>
             <Button x:Name="btn_Stop" Content="Stop" Width="75" Click="Btn_Stop_Click" ClickMode="Press"/>
             <Button x:Name="btn_Exit" Content="Exit" Width="75" Click="Btn_Exit_Click" ClickMode="Press"/>
+            <Button x:Name="btn_SimType" Content="Sim Type" Width="75" Click="Btn_Sim_Type_Click" ClickMode="Press"/>
+            <Button x:Name="btn_SimMouse" Content="Sim Mouse" Width="75" Click="Btn_Sim_Mouse_Click" ClickMode="Press"/>
         </Menu>
         <TextBox x:Name="textBox_1" Margin="10,0,609,15" TextWrapping="Wrap" IsReadOnly="True" ScrollViewer.CanContentScroll="True" Height="335" VerticalAlignment="Bottom"/>
         <Label x:Name="label_1" Content="" HorizontalAlignment="Left" Margin="10,0,0,355" VerticalAlignment="Bottom" Width="87" FontWeight="Bold" FontSize="14" Height="27"/>

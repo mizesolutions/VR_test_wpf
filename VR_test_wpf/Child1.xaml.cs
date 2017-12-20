@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WindowsInput;
+using WindowsInput.Native;
 
 namespace VR_test_wpf
 {
@@ -21,12 +24,14 @@ namespace VR_test_wpf
     {
         public event NotifyParentDelegate NotifyParentEvent;
         public event NotifyParentDelegateMouse NotifyParentEventMouse;
+        private InputSimulator sim;
 
         public Child1()
         {
             InitializeComponent();
-            //ReadKeyInChild();
+            sim = new InputSimulator();
         }
+        
 
         public void ReadKeyInChild()
         {
@@ -44,7 +49,6 @@ namespace VR_test_wpf
             {
                 Close();
             }
-                
         }
 
         public void NotifyParent(string pressedKey)
@@ -55,6 +59,24 @@ namespace VR_test_wpf
                     //Raise Event. All the listeners of this event will get a call.
                     NotifyParentEvent(customEventArgs);
             }
+        }
+
+        public void KeySim()
+        {
+            sim.Keyboard.KeyUp(VirtualKeyCode.VK_A);
+        }
+
+        public void MouseSim()
+        {
+            var sim = new InputSimulator();
+            sim.Mouse
+               .MoveMouseTo(0, 0)
+               .Sleep(1000)
+               .MoveMouseTo(5000, 5000)
+               .Sleep(1000)
+               .LeftButtonDown()
+               .MoveMouseTo(10000, 35000)
+               .LeftButtonUp();
         }
 
         public void NotifyParentMouse(object sender, MouseEventArgs m)
