@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VR_test_wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="444.048" Width="711.867" ResizeMode="NoResize">
+        Title="MainWindow" Height="444.048" Width="711.867" ResizeMode="CanMinimize">
     <Grid>
         <Menu Height="24" VerticalAlignment="Top">
             <Menu.Effect>

@@ -51,6 +51,19 @@ namespace VR_test_wpf
             }
         }
 
+        private void TextBox_2_TextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text != ConsoleKey.Escape.ToString())
+            {
+                NotifyParent(e.Text);
+                textBox_2.Clear();
+            }
+            else
+            {
+                Close();
+            }            
+        }
+
         public void NotifyParent(string pressedKey)
         {
             if (NotifyParentEvent != null)
@@ -63,20 +76,53 @@ namespace VR_test_wpf
 
         public void KeySim()
         {
-            sim.Keyboard.KeyUp(VirtualKeyCode.VK_A);
+            //sim.Keyboard
+            //    .KeyPress(VirtualKeyCode.VK_A)
+            //    .KeyPress(VirtualKeyCode.VK_B);
+            NotifyParent("a");
+            NotifyParent("b");
+            NotifyParent("c");
+            NotifyParent("d");
         }
 
-        public void MouseSim()
+        public void MouseSim(Point start)
         {
+            
             var sim = new InputSimulator();
-            sim.Mouse
-               .MoveMouseTo(0, 0)
-               .Sleep(1000)
-               .MoveMouseTo(5000, 5000)
-               .Sleep(1000)
-               .LeftButtonDown()
-               .MoveMouseTo(10000, 35000)
-               .LeftButtonUp();
+            for (int i = 1; i < 10; i++)
+            {
+                sim.Mouse.MoveMouseBy(i * -5, i);
+                sim.Mouse.Sleep(50);
+            }
+            for (int i = 1; i < 10; i++)
+            {
+                sim.Mouse.MoveMouseBy(i * 5, i);
+                sim.Mouse.Sleep(50);
+            }
+            for (int i = 1; i < 10; i++)
+            {
+                sim.Mouse.MoveMouseBy(i, i * -5);
+                sim.Mouse.Sleep(50);
+            }
+            for (int i = 1; i < 10; i++)
+            {
+                sim.Mouse.MoveMouseBy(i, i * 5);
+                sim.Mouse.Sleep(50);
+            }
+            for (int i = 1; i < 8; i++)
+            {
+                sim.Mouse.MoveMouseBy(i * -5, i);
+                sim.Mouse.Sleep(50);
+            }
+            for (int i = 1; i < 7; i++)
+            {
+                sim.Mouse.MoveMouseBy(i, i * -6);
+                sim.Mouse.Sleep(50);
+            }
+
+
+
+            //sim.Mouse.MoveMouseTo(start.X, start.Y);
         }
 
         public void NotifyParentMouse(object sender, MouseEventArgs m)
@@ -101,6 +147,18 @@ namespace VR_test_wpf
         private void Path_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Close();
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key.ToString() != ConsoleKey.Escape.ToString())
+            {
+                NotifyParent(e.Key.ToString());
+            }
+            else
+            {
+                Close();
+            }
         }
     }
 }

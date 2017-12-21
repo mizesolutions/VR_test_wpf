@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VR_test_wpf"
         mc:Ignorable="d"
-        Title="Child1" Height="429.896" Width="528.865" ResizeMode="NoResize">
+        Title="Child1" Height="429.896" Width="528.865" ResizeMode="NoResize" KeyUp="Window_KeyUp">
     <Grid>
         <StackPanel FocusManager.FocusedElement="{Binding ElementName=textBox_2}">
-            <TextBox x:Name="textBox_2" Height="24" Margin="10,42,10,10" TextWrapping="Wrap" VerticalAlignment="Top" KeyUp="TextBox_2_KeyUp"/>
+            <TextBox x:Name="textBox_2" Height="24" Margin="10,42,10,10" TextWrapping="Wrap" VerticalAlignment="Top" KeyUp="TextBox_2_KeyUp" TextInput="TextBox_2_TextInput" IsEnabled="False" Visibility="Hidden"/>
         </StackPanel>
         <Label x:Name="label_2" Content="" Height="27" Margin="10,10,10,0" VerticalAlignment="Top"/>
 

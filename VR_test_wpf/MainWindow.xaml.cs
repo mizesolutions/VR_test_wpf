@@ -14,11 +14,15 @@ using System.Windows.Shapes;
 using WindowsInput.Native;
 using WindowsInput;
 using System.Windows;
+using System.Windows.Forms;
+using System.Drawing;
+
 
 namespace VR_test_wpf
 {
     public delegate void NotifyParentDelegate(CustomEventArgs customEventArgs);
-    public delegate void NotifyParentDelegateMouse(object sender, MouseEventArgs m);
+    public delegate void NotifyParentDelegateMouse(object sender, System.Windows.Input.MouseEventArgs m);
+    
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -26,10 +30,49 @@ namespace VR_test_wpf
     public partial class MainWindow : Window
     {
         private Child1 _child;
+        private NotifyIcon MyNotifyIcon;
 
         public MainWindow()
         {
             InitializeComponent();
+            CenterWindowOnScreen();
+            MyNotifyIcon = new NotifyIcon
+            {
+                Icon = new Icon(fileName: @"../../img/inf.ico")
+            };
+            MyNotifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(MyNotifyIcon_MouseDoubleClick);
+        }
+
+        void MyNotifyIcon_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (this.WindowState == WindowState.Minimized)
+            {
+                this.ShowInTaskbar = false;
+                MyNotifyIcon.BalloonTipTitle = "Minimize Sucessful";
+                MyNotifyIcon.BalloonTipText = "Minimized the app ";
+                MyNotifyIcon.ShowBalloonTip(400);
+                MyNotifyIcon.Visible = true;
+            }
+            else if (this.WindowState == WindowState.Normal)
+            {
+                MyNotifyIcon.Visible = false;
+                this.ShowInTaskbar = true;
+            }
+        }
+
+        private void CenterWindowOnScreen()
+        {
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            double windowWidth = this.Width;
+            double windowHeight = this.Height;
+            this.Left = (screenWidth / 2) - (windowWidth / 2) - 200;
+            this.Top = (screenHeight / 2) - (windowHeight / 2);
         }
 
         public void ParentMethod()
@@ -51,7 +94,7 @@ namespace VR_test_wpf
         }
 
         //Event Listener. This function will be called whenever child class raises event.
-        private void _child_NotifyParentEventMouse(object sender, MouseEventArgs m)
+        private void _child_NotifyParentEventMouse(object sender, System.Windows.Input.MouseEventArgs m)
         {
             circle.Center = m.GetPosition((IInputElement)sender);
         }
@@ -63,7 +106,7 @@ namespace VR_test_wpf
 
         private void Btn_Exit_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
@@ -79,12 +122,19 @@ namespace VR_test_wpf
 
         private void Btn_Sim_Type_Click(object sender, RoutedEventArgs e)
         {
+            ParentMethod();
+            label_1.Content += "Keystrokes:";
             _child.KeySim();
         }
 
         private void Btn_Sim_Mouse_Click(object sender, RoutedEventArgs e)
         {
-            _child.MouseSim();
+            ParentMethod();
+            WindowState = WindowState.Minimized;
+            System.Windows.Point start = Mouse.GetPosition(this);
+            _child.MouseSim(start);
+            WindowState = WindowState.Normal;
+            this.Activate();
         }
 
     }
