@@ -35,6 +35,7 @@ namespace VR_test_wpf
         public MainWindow()
         {
             InitializeComponent();
+            MinimizeToTray.Enable(this);
             CenterWindowOnScreen();
             MyNotifyIcon = new NotifyIcon
             {
@@ -123,8 +124,11 @@ namespace VR_test_wpf
         private void Btn_Sim_Type_Click(object sender, RoutedEventArgs e)
         {
             ParentMethod();
+            WindowState = WindowState.Minimized;
             label_1.Content += "Keystrokes:";
             _child.KeySim();
+            WindowState = WindowState.Normal;
+            this.Activate();
         }
 
         private void Btn_Sim_Mouse_Click(object sender, RoutedEventArgs e)

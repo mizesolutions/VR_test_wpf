@@ -51,6 +51,9 @@
   <PropertyGroup>
     <StartupObject>VR_test_wpf.App</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>inf.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -77,6 +80,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MinimizeToTray.cs" />
+    <Compile Include="SendKeys.cs" />
     <Page Include="Child1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -139,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="img\inf.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="inf.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

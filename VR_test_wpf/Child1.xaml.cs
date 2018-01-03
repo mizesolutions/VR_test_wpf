@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using WindowsInput;
+using WindowsInput.Native;
 
 namespace VR_test_wpf
 {
@@ -64,13 +65,52 @@ namespace VR_test_wpf
 
         public void KeySim()
         {
-            //sim.Keyboard
-            //    .KeyPress(VirtualKeyCode.VK_A)
-            //    .KeyPress(VirtualKeyCode.VK_B);
-            NotifyParent("a");
-            NotifyParent("b");
-            NotifyParent("c");
-            NotifyParent("d");
+            var sim = new InputSimulator();
+            sim.Keyboard
+                .KeyPress(VirtualKeyCode.VK_A)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.VK_W)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.VK_D)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.VK_S)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.LEFT)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.UP)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.RIGHT)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.DOWN)
+                .Sleep(1000)
+                .KeyPress(VirtualKeyCode.RETURN);
+            //NotifyParent("a");
+            //NotifyParent("b");
+            //NotifyParent("c");
+            //NotifyParent("d");
+            //SendKeys.Send(Key.A);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.W);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.D);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.S);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.Left);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.Up);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.Right);
+            //Window_KeyUp(this, SendKeys.E1);
+
+            //SendKeys.Send(Key.Down);
+            //Window_KeyUp(this, SendKeys.E1);
         }
 
         public void MouseSim(Point start)
@@ -82,35 +122,42 @@ namespace VR_test_wpf
                 sim.Mouse.MoveMouseBy(i * -5, i);
                 sim.Mouse.Sleep(50);
             }
+            sim.Mouse.RightButtonClick();
+            sim.Mouse.Sleep(1000);
             for (int i = 1; i < 10; i++)
             {
                 sim.Mouse.MoveMouseBy(i * 5, i);
                 sim.Mouse.Sleep(50);
             }
+            sim.Mouse.RightButtonClick();
+            sim.Mouse.Sleep(1000);
             for (int i = 1; i < 10; i++)
             {
                 sim.Mouse.MoveMouseBy(i, i * -5);
                 sim.Mouse.Sleep(50);
             }
+            sim.Mouse.RightButtonClick();
+            sim.Mouse.Sleep(1000);
             for (int i = 1; i < 10; i++)
             {
                 sim.Mouse.MoveMouseBy(i, i * 5);
                 sim.Mouse.Sleep(50);
             }
+            sim.Mouse.RightButtonClick();
+            sim.Mouse.Sleep(1000);
             for (int i = 1; i < 8; i++)
             {
                 sim.Mouse.MoveMouseBy(i * -5, i);
                 sim.Mouse.Sleep(50);
             }
+            sim.Mouse.RightButtonClick();
+            sim.Mouse.Sleep(3000);
             for (int i = 1; i < 7; i++)
             {
                 sim.Mouse.MoveMouseBy(i, i * -6);
                 sim.Mouse.Sleep(50);
             }
-
-
-
-            //sim.Mouse.MoveMouseTo(start.X, start.Y);
+            
         }
 
         public void NotifyParentMouse(object sender, MouseEventArgs m)
