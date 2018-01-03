@@ -102,6 +102,7 @@ namespace VR_test_wpf
 
         private void Btn_Stop_Click(object sender, RoutedEventArgs e)
         {
+            ChildGroupChange();
             _child.Close();
         }
 
@@ -112,6 +113,7 @@ namespace VR_test_wpf
 
         private void Btn_Start_Click(object sender, RoutedEventArgs e)
         {
+            ChildGroupChange();
             ParentMethod();
             label_1.Content += "Keystrokes:";
             label_3.Content += "Mouse Movement:";
@@ -119,6 +121,28 @@ namespace VR_test_wpf
             _child.Left = (Left + Width) - 5;
             _child.Show();
 
+        }
+
+        private void ChildGroupChange()
+        {
+            if(textBox_1.Visibility == Visibility.Visible)
+            {
+                btn_Start.IsEnabled = true;
+                btn_Stop.IsEnabled = false;
+                label_1.Visibility = Visibility.Hidden;
+                label_3.Visibility = Visibility.Hidden;
+                grid_HelloWorld.Visibility = Visibility.Hidden;
+                textBox_1.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                btn_Start.IsEnabled = false;
+                btn_Stop.IsEnabled = true;
+                label_1.Visibility = Visibility.Visible;
+                label_3.Visibility = Visibility.Visible;
+                grid_HelloWorld.Visibility = Visibility.Visible;
+                textBox_1.Visibility = Visibility.Visible;
+            }
         }
 
         private void Btn_Sim_Type_Click(object sender, RoutedEventArgs e)
