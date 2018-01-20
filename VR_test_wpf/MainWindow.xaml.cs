@@ -31,6 +31,7 @@ namespace VR_test_wpf
     {
         private Child1 _child;
         private NotifyIcon MyNotifyIcon;
+        private PVRReader PVRObj;
 
         public MainWindow()
         {
@@ -42,6 +43,7 @@ namespace VR_test_wpf
                 Icon = new Icon(fileName: @"../../img/inf.ico")
             };
             MyNotifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(MyNotifyIcon_MouseDoubleClick);
+            PVRObj = new PVRReader();
         }
 
         void MyNotifyIcon_MouseDoubleClick(object sender, System.Windows.Forms.MouseEventArgs e)
@@ -165,6 +167,23 @@ namespace VR_test_wpf
             this.Activate();
         }
 
+        private void Btn_VRTest_Click(object sender, RoutedEventArgs e)
+        {
+            label_pvrResults.Visibility = Visibility.Visible;
+            textbox_pvrTest.Visibility = Visibility.Visible;
+            try
+            {
+                PVRObj.OpenDevice();
+                textbox_pvrTest.Text = "HID Device List:\r\n" + PVRObj.GetHidDeviceList() + "\r\n" +
+                                       "HID Device:\r\n" + PVRObj.GetDevice() + "\r\n" +
+                                       "Device Open:   " + PVRObj.IsOpen() + "\r\n" +
+                                       "Device Report: \r\n" + PVRObj.CreateReport();
+            }
+            catch (Exception ex)
+            {
+                textbox_pvrTest.Text = "Error: " + ex;
+            }
+        }
     }
 
 }
